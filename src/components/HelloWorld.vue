@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import {  ref } from 'vue'
-import { NewType } from "../types";
+import {  ref, onMounted } from 'vue'
+import { NewType } from "../types"
+import { api_spotifyAlbumsGet } from "../composables/useApi";
 
 defineProps<{
   msg: string
@@ -8,10 +9,21 @@ defineProps<{
 }>()
 
 const count = ref(0)
+const title = ref<string>('瑄瑄')
+
+/** */
+onMounted(async () => {
+
+  const data = await api_spotifyAlbumsGet()
+  console.log('data: ', data);
+})
+
+
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
+  <h1>{{ title }}</h1>
 
   <h2 v-on:click="$props.data_count.click">asdfasdd{{ $props.data_count.value  }}</h2>
 
